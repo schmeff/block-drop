@@ -14,13 +14,31 @@ class LevelDimensions {
   int get columns {
     return this._columns;
   }
+
+  Map toJson() => {
+    'rows': this._rows,
+    'columns': this._columns
+  };
 }
 
 class Level with ChangeNotifier{
-  LevelDimensions _levelDimensions = LevelDimensions(0, 0);
-  List<Block> _enemies = List();
+  final int _number;
+  final LevelDimensions _levelDimensions;
+  final List<Block> _enemies;
+  final int _blockCount;
 
-  Level(this._levelDimensions);
+  Level(this._number, this._levelDimensions, this._enemies, this._blockCount);
+
+  Map toJson() => {
+    'number': this._number,
+    'levelDimensions': this._levelDimensions != null? this._levelDimensions.toJson() : null,
+    'enemies': this._enemies != null? this._enemies.map((e) => e.toJson()).toList() : null,
+    'blockCount': this._blockCount
+  };
+
+  int get number{
+    return this._number;
+  }
 
   LevelDimensions get levelDimensions {
     return this._levelDimensions;
@@ -28,5 +46,9 @@ class Level with ChangeNotifier{
 
   List<Block> get enemies{
     return this._enemies;
+  }
+
+  int get blockCount{
+    return this._blockCount;
   }
 }

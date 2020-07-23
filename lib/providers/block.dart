@@ -3,9 +3,9 @@ import 'package:collection/collection.dart';
 
 import '../exceptions/block_exception.dart';
 
-enum Direction { UP, DOWN, LEFT, RIGHT, NONE }
+enum Direction { UP, DOWN, LEFT, RIGHT, NONE } // DO NOT CHANGE THE ORDER THESE ARE LISTED IN
 
-enum BlockStatus { ALLY, ENEMY, EMPTY }
+enum BlockStatus { ALLY, ENEMY, EMPTY } // DO NOT CHANGE THE ORDER THESE ARE LISTED IN
 
 class Position {
   int _row;
@@ -20,6 +20,11 @@ class Position {
   int get column {
     return this._column;
   }
+
+  Map toJson() => {
+    'row': this._row,
+    'column': this._column
+  };
 }
 
 class Block {
@@ -45,6 +50,13 @@ class Block {
           "Blocks with 'ALLY' block status can only have a direction of [Direction.DOWN].");
     }
   }
+
+  Map toJson() => {
+    'id': this._id,
+    'position': this._position,
+    'status': this._status.index,
+    'route': this._route.map((e) => e.index).toList()
+  };
 
   int get id {
     return this._id;

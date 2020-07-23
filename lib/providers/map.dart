@@ -3,24 +3,30 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import './block.dart';
+import './level.dart';
 
 class Map with ChangeNotifier {
   List<List<Block>> _map;
   List<Block> _enemies = List();
+  int _blockCount;
 
   List<List<Block>> get map {
     return this._map;
   }
 
-  Map(int rows, int columns) {
-    _enemies.add(Block(Position(5, 0), BlockStatus.ENEMY,
-        [Direction.UP, Direction.UP, Direction.DOWN, Direction.DOWN], 0));
-    _enemies.add(Block(Position(5, 9), BlockStatus.ENEMY,
-        [Direction.LEFT, Direction.LEFT, Direction.RIGHT, Direction.RIGHT], 1));
-    if (rows > 0 && columns > 0) {
-      _buildMap(rows, columns);
-      _placeEnemies();
+  Map(Level level) {
+    if (level != null) {
+      this._enemies = level.enemies;
+      this._blockCount = level.blockCount;
+      if (level.levelDimensions.rows > 0 && level.levelDimensions.columns > 0) {
+        _buildMap(level.levelDimensions.rows, level.levelDimensions.columns);
+        _placeEnemies();
+      }
     }
+  }
+
+  int get blockCount {
+    return this._blockCount;
   }
 
   _buildMap(int rows, int columns) {

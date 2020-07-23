@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './screens/game_screen.dart';
+import './screens/level_select_screen.dart';
 
-import 'providers/map.dart';
-import 'providers/level.dart';
+import './providers/map.dart';
+import './providers/levels.dart';
 
 void main() {
   runApp(MultiProvider(
     child: MyApp(),
     providers: [
       ChangeNotifierProvider(
-        create: (ctx) => Level(
-          LevelDimensions(10, 10),
-        ),
+        create: (ctx) => Levels(),
       ),
-      ChangeNotifierProvider(
-        create: (ctx) => Map(10, 10),
+      ChangeNotifierProxyProvider<Levels, Map>(
+        create: (ctx) => Map(null),
+        update: (ctx, levels, map) =>
+            Map(levels.getLevel(levels.currentLevelNumber)),
       ),
     ],
   ));
@@ -32,7 +33,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: GameScreen(),
+      home: LevelSelectScreen(),
+      routes: {
+        LevelSelectScreen.routeName: (ctx) => LevelSelectScreen(),
+        GameScreen.routeName: (ctx) => GameScreen(),
+      },
     );
   }
 }
