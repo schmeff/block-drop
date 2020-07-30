@@ -16,11 +16,29 @@ class MapCell extends StatelessWidget {
         onTap: () {
           Provider.of<Map>(context, listen: false)
               .dropBlock(_block.position.column);
+          Provider.of<Map>(context, listen: false)
+              .unHighlightColumn(_block.position.column);
+          Provider.of<Map>(context, listen: false)
+              .setCurrentlyHighlightedColumn(null);
+        },
+        onTapDown: (details) {
+          Provider.of<Map>(context, listen: false)
+              .highlightColumn(_block.position.column);
+          Provider.of<Map>(context, listen: false)
+              .setCurrentlyHighlightedColumn(_block.position.column);
+        },
+        onTapCancel: () {
+          Provider.of<Map>(context, listen: false)
+              .unHighlightColumn(_block.position.column);
+          Provider.of<Map>(context, listen: false)
+              .setCurrentlyHighlightedColumn(null);
         },
         child: Container(
           margin: EdgeInsets.all(0.5),
           decoration: BoxDecoration(
-            color: _block.color,
+            color: !_block.highlighted
+                ? _block.color
+                : _block.color.withOpacity(0.7),
             borderRadius: BorderRadius.circular(2.0),
             boxShadow: _block.color != Color.fromRGBO(31, 31, 31, 1)
                 ? [

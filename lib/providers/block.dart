@@ -40,6 +40,7 @@ class Block {
   BlockStatus _status;
   List<Direction> _route;
   int _currentDirectionIndex = 0;
+  bool _highlighted = false;
 
   Block(this._position, this._status, this._route, [this._id]) {
     if (this._status == BlockStatus.ENEMY && this._id == null) {
@@ -64,6 +65,14 @@ class Block {
         'status': this._status.index,
         'route': this._route.map((e) => e.index).toList()
       };
+
+  bool get highlighted {
+    return this._highlighted;
+  }
+
+  void setHighlighted(bool h) {
+    this._highlighted = h;
+  }
 
   int get id {
     return this._id;

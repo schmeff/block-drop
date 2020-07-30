@@ -10,6 +10,7 @@ class Map with ChangeNotifier {
   List<Block> _enemies = List();
   int _blockCount;
   List<int> _enemiesToBeRemoved = List();
+  int _currentlyHighlightColumn;
 
   List<List<Block>> get map {
     return this._map;
@@ -24,6 +25,10 @@ class Map with ChangeNotifier {
         _placeEnemies();
       }
     }
+  }
+
+  void setCurrentlyHighlightedColumn(int column) {
+    this._currentlyHighlightColumn = column;
   }
 
   int get blockCount {
@@ -50,13 +55,20 @@ class Map with ChangeNotifier {
   }
 
   _markCellAsEmpty(int row, int column) {
+    bool high = false;
+    if (this._currentlyHighlightColumn == column) {
+      high = this._map[row][column].highlighted;
+    }
     this._map[row][column] =
         Block(Position(row, column), BlockStatus.EMPTY, []);
+    this._map[row][column].setHighlighted(high);
   }
 
   _markCellAsAlly(int row, int column) {
+    bool high = this._map[row][column].highlighted;
     this._map[row][column] =
         Block(Position(row, column), BlockStatus.ALLY, [Direction.DOWN]);
+    this._map[row][column].setHighlighted(high);
   }
 
   _moveEnemies() {
@@ -159,5 +171,17 @@ class Map with ChangeNotifier {
     if (this._enemies.length > 0) {
       this._enemies = [];
     }
+  }
+
+  highlightColumn(int column) {
+    this._map.forEach((row) {
+      row[column].setHighlighted(true);
+    });
+    notifyListeners();
+  }
+
+  unHighlightColumn(int column) {
+    this._map.forEach((row) => row[column].setHighlighted(false));
+    notifyListeners();
   }
 }
