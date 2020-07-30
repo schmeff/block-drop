@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Game',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        primaryColor: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: LevelSelectScreen(),

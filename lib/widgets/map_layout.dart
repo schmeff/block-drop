@@ -24,7 +24,7 @@ class MapLayout extends StatelessWidget {
     var mapHeight = MediaQuery.of(context).size.height / 2;
     var mapWidth = mapHeight;
     return Container(
-      color: Colors.black38,
+      color: Color.fromRGBO(60, 60, 60, 1),
       padding: EdgeInsets.all(0.5),
       height: mapHeight + 1,
       width: mapWidth,

@@ -9,6 +9,7 @@ class Map with ChangeNotifier {
   List<List<Block>> _map;
   List<Block> _enemies = List();
   int _blockCount;
+  List<int> _enemiesToBeRemoved = List();
 
   List<List<Block>> get map {
     return this._map;
@@ -73,6 +74,10 @@ class Map with ChangeNotifier {
           }
           enemy.incrementDirection();
         });
+        this
+            ._enemiesToBeRemoved
+            .forEach((enemyId) => this._removeEnemy(enemyId));
+        this._enemiesToBeRemoved.clear();
         _moveEnemies();
         notifyListeners();
       }
@@ -95,7 +100,7 @@ class Map with ChangeNotifier {
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
     if (this._map[enemy.position.row - 1][enemy.position.column].status ==
         BlockStatus.ALLY) {
-      this._removeEnemy(enemy.id);
+      this._enemiesToBeRemoved.add(enemy.id);
     } else {
       enemy.setPosition(enemy.position.row - 1, enemy.position.column);
       this._map[enemy.position.row][enemy.position.column] = enemy;
@@ -109,7 +114,9 @@ class Map with ChangeNotifier {
   }
 
   dropBlock(int column) {
-    if (this._map[0][column].status == BlockStatus.EMPTY) {
+    if (this._map[0][column].status == BlockStatus.EMPTY &&
+        this._blockCount > 0) {
+      this._blockCount -= 1;
       this._map[0][column] =
           Block(Position(0, column), BlockStatus.ALLY, [Direction.DOWN]);
       notifyListeners();
@@ -135,6 +142,7 @@ class Map with ChangeNotifier {
         this._map[row + 1][column].status == BlockStatus.ENEMY) {
       this._markCellAsEmpty(row, column);
       if (this._map[row + 1][column].status == BlockStatus.ENEMY) {
+        this._blockCount += 1;
         this._removeEnemy(this._map[row + 1][column].id);
       }
       this._markCellAsAlly(row + 1, column);
@@ -145,5 +153,11 @@ class Map with ChangeNotifier {
 
   _removeEnemy(int id) {
     this._enemies.removeWhere((enemy) => enemy.id == id);
+  }
+
+  clearMap() {
+    if (this._enemies.length > 0) {
+      this._enemies = [];
+    }
   }
 }

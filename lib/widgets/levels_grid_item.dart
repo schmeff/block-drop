@@ -19,10 +19,10 @@ class LevelsGridItem extends StatelessWidget {
           levelNumber.toString(),
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
-        color: Theme.of(context).primaryColor,
       ),
-      onTap: (){
-        Provider.of<Levels>(context, listen: false).setCurrentLevelNumber(this.levelNumber);
+      onTap: () {
+        Provider.of<Levels>(context, listen: false)
+            .setCurrentLevelNumber(this.levelNumber);
         Navigator.of(context).pushNamed(GameScreen.routeName);
       },
     );

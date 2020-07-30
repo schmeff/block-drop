@@ -3,9 +3,19 @@ import 'package:collection/collection.dart';
 
 import '../exceptions/block_exception.dart';
 
-enum Direction { UP, DOWN, LEFT, RIGHT, NONE } // DO NOT CHANGE THE ORDER THESE ARE LISTED IN
+enum Direction {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+  NONE
+} // DO NOT CHANGE THE ORDER THESE ARE LISTED IN
 
-enum BlockStatus { ALLY, ENEMY, EMPTY } // DO NOT CHANGE THE ORDER THESE ARE LISTED IN
+enum BlockStatus {
+  ALLY,
+  ENEMY,
+  EMPTY
+} // DO NOT CHANGE THE ORDER THESE ARE LISTED IN
 
 class Position {
   int _row;
@@ -21,10 +31,7 @@ class Position {
     return this._column;
   }
 
-  Map toJson() => {
-    'row': this._row,
-    'column': this._column
-  };
+  Map toJson() => {'row': this._row, 'column': this._column};
 }
 
 class Block {
@@ -52,11 +59,11 @@ class Block {
   }
 
   Map toJson() => {
-    'id': this._id,
-    'position': this._position,
-    'status': this._status.index,
-    'route': this._route.map((e) => e.index).toList()
-  };
+        'id': this._id,
+        'position': this._position,
+        'status': this._status.index,
+        'route': this._route.map((e) => e.index).toList()
+      };
 
   int get id {
     return this._id;
@@ -90,15 +97,16 @@ class Block {
     if (this._currentDirectionIndex >= _route.length) {
       this._currentDirectionIndex = 0;
     }
-    this._currentDirectionIndex = this._currentDirectionIndex >= _route.length - 1
-        ? 0
-        : this._currentDirectionIndex + 1;
+    this._currentDirectionIndex =
+        this._currentDirectionIndex >= _route.length - 1
+            ? 0
+            : this._currentDirectionIndex + 1;
   }
 
   Color get color {
-    if (status == BlockStatus.ALLY) return Colors.blue;
+    if (status == BlockStatus.ALLY) return Colors.teal;
     if (status == BlockStatus.ENEMY) return Colors.red;
 
-    return Colors.white;
+    return Color.fromRGBO(31, 31, 31, 1);
   }
 }
