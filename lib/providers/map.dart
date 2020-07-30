@@ -9,8 +9,10 @@ class Map with ChangeNotifier {
   List<List<Block>> _map;
   List<Block> _enemies = List();
   int _blockCount;
+  int _startingBlockCount;
   List<int> _enemiesToBeRemoved = List();
   int _currentlyHighlightColumn;
+  double _blockPercentage = 1.0;
 
   List<List<Block>> get map {
     return this._map;
@@ -19,7 +21,8 @@ class Map with ChangeNotifier {
   Map(Level level) {
     if (level != null) {
       this._enemies = level.enemies;
-      this._blockCount = level.blockCount;
+      this._startingBlockCount = level.blockCount;
+      this._blockCount = this._startingBlockCount;
       if (level.levelDimensions.rows > 0 && level.levelDimensions.columns > 0) {
         _buildMap(level.levelDimensions.rows, level.levelDimensions.columns);
         _placeEnemies();
@@ -129,6 +132,7 @@ class Map with ChangeNotifier {
     if (this._map[0][column].status == BlockStatus.EMPTY &&
         this._blockCount > 0) {
       this._blockCount -= 1;
+      this._calculatePercentageLeft();
       this._map[0][column] =
           Block(Position(0, column), BlockStatus.ALLY, [Direction.DOWN]);
       notifyListeners();
@@ -155,6 +159,7 @@ class Map with ChangeNotifier {
       this._markCellAsEmpty(row, column);
       if (this._map[row + 1][column].status == BlockStatus.ENEMY) {
         this._blockCount += 1;
+        this._calculatePercentageLeft();
         this._removeEnemy(this._map[row + 1][column].id);
       }
       this._markCellAsAlly(row + 1, column);
@@ -183,5 +188,13 @@ class Map with ChangeNotifier {
   unHighlightColumn(int column) {
     this._map.forEach((row) => row[column].setHighlighted(false));
     notifyListeners();
+  }
+
+  void _calculatePercentageLeft() {
+    this._blockPercentage = this._blockCount / this._startingBlockCount;
+  }
+
+  double get blockPercentage {
+    return this._blockPercentage;
   }
 }
