@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/map_layout.dart';
+import '../widgets/grid_layout.dart';
 import '../widgets/block_progress_bar.dart';
 
-import '../providers/map.dart';
+import '../providers/grid.dart';
 import '../providers/levels.dart';
 
 class GameScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<Map>(context, listen: false).clearMap();
+        Provider.of<Grid>(context, listen: false).clearGrid();
         return true;
       },
       child: Scaffold(
@@ -58,11 +58,11 @@ class _GameScreenState extends State<GameScreen> {
                           ],
                         ),
                       ),
-                      Consumer<Map>(
-                        builder: (context, map, child) => Container(
+                      Consumer<Grid>(
+                        builder: (context, grid, child) => Container(
                           margin: EdgeInsets.only(right: 35),
                           child: Text(
-                            "x ${map.blockCount.toString()}",
+                            "x ${grid.blockCount.toString()}",
                             style: TextStyle(
                                 fontSize: 20.0, fontWeight: FontWeight.w500),
                           ),
@@ -73,7 +73,7 @@ class _GameScreenState extends State<GameScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  MapLayout(),
+                  GridLayout(),
                 ],
               ),
             ],

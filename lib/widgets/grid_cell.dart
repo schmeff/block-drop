@@ -2,35 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/block.dart';
-import '../providers/map.dart';
+import '../providers/grid.dart';
 
-class MapCell extends StatelessWidget {
+class GridCell extends StatelessWidget {
   final Block _block;
 
-  MapCell(this._block);
+  GridCell(this._block);
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
       child: GestureDetector(
         onTap: () {
-          Provider.of<Map>(context, listen: false)
+          Provider.of<Grid>(context, listen: false)
               .dropBlock(_block.position.column);
-          Provider.of<Map>(context, listen: false)
+          Provider.of<Grid>(context, listen: false)
               .unHighlightColumn(_block.position.column);
-          Provider.of<Map>(context, listen: false)
+          Provider.of<Grid>(context, listen: false)
               .setCurrentlyHighlightedColumn(null);
         },
         onTapDown: (details) {
-          Provider.of<Map>(context, listen: false)
+          Provider.of<Grid>(context, listen: false)
               .highlightColumn(_block.position.column);
-          Provider.of<Map>(context, listen: false)
+          Provider.of<Grid>(context, listen: false)
               .setCurrentlyHighlightedColumn(_block.position.column);
         },
         onTapCancel: () {
-          Provider.of<Map>(context, listen: false)
+          Provider.of<Grid>(context, listen: false)
               .unHighlightColumn(_block.position.column);
-          Provider.of<Map>(context, listen: false)
+          Provider.of<Grid>(context, listen: false)
               .setCurrentlyHighlightedColumn(null);
         },
         child: Container(

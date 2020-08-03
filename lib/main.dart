@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import './screens/game_screen.dart';
 import './screens/level_select_screen.dart';
 
-import './providers/map.dart';
+import 'providers/grid.dart';
 import './providers/levels.dart';
 
 void main() {
@@ -15,10 +15,10 @@ void main() {
       ChangeNotifierProvider(
         create: (ctx) => Levels(),
       ),
-      ChangeNotifierProxyProvider<Levels, Map>(
-        create: (ctx) => Map(null),
+      ChangeNotifierProxyProvider<Levels, Grid>(
+        create: (ctx) => Grid(null),
         update: (ctx, levels, map) =>
-            Map(levels.getLevel(levels.currentLevelNumber)),
+            Grid(levels.getLevel(levels.currentLevelNumber)),
       ),
     ],
   ));

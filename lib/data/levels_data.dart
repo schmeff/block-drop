@@ -11,7 +11,8 @@ class LevelsData {
           "route": [0, 0, 1, 1]
         }
       ],
-      "blockCount": 5
+      "blockCount": 5,
+      "stars": {"one": 1, "two": 3, "three": 5},
     },
     2: {
       "number": 2,
@@ -24,7 +25,8 @@ class LevelsData {
           "route": [2, 2, 3, 3]
         }
       ],
-      "blockCount": 5
+      "blockCount": 5,
+      "stars": {"one": 1, "two": 3, "three": 5},
     },
     3: {
       "number": 3,
@@ -37,7 +39,8 @@ class LevelsData {
           "route": [0, 0, 1, 1]
         }
       ],
-      "blockCount": 5
+      "blockCount": 5,
+      "stars": {"one": 1, "two": 3, "three": 7},
     },
   };
 }

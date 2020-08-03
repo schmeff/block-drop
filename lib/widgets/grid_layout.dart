@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/map.dart';
+import '../providers/grid.dart';
 import '../providers/block.dart';
 
-import './map_row.dart';
+import 'grid_row.dart';
 
-class MapLayout extends StatelessWidget {
+class GridLayout extends StatelessWidget {
   List<Widget> mapRows(List<List<Block>> map, double mapHeight) {
     return map
         .map(
           (e) => SizedBox(
             height: mapHeight / map.length,
-            child: MapRow(e),
+            child: GridRow(e),
           ),
         )
         .toList();
@@ -20,16 +20,16 @@ class MapLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var map = Provider.of<Map>(context).map;
-    var mapHeight = MediaQuery.of(context).size.height / 2;
-    var mapWidth = mapHeight;
+    var grid = Provider.of<Grid>(context).grid;
+    var gridHeight = MediaQuery.of(context).size.height / 2;
+    var gridWidth = gridHeight;
     return Container(
       padding: EdgeInsets.all(0.5),
-      height: mapHeight + 1,
-      width: mapWidth,
+      height: gridHeight + 1,
+      width: gridWidth,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: mapRows(map, mapHeight),
+        children: mapRows(grid, gridHeight),
       ),
     );
   }

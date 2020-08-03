@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../providers/map.dart';
+import '../providers/grid.dart';
 
 class BlocksProgressBar extends StatefulWidget {
   @override
@@ -14,7 +14,8 @@ class _BlocksProgressBarState extends State<BlocksProgressBar> {
 
   @override
   Widget build(BuildContext context) {
-    int blockCount = Provider.of<Map>(context).blockCount;
+    int blockCount = Provider.of<Grid>(context).blockCount;
+    Map<String, int> stars = Provider.of<Grid>(context, listen: false).stars;
     return Container(
       width: MediaQuery.of(context).size.width * 0.75,
       child: Column(
@@ -22,29 +23,39 @@ class _BlocksProgressBarState extends State<BlocksProgressBar> {
           Row(
             children: <Widget>[
               SizedBox(
-                width: MediaQuery.of(context).size.width * .75 * 0.2,
+                width: MediaQuery.of(context).size.width *
+                    .75 *
+                    (1 / stars['three']),
               ),
               Icon(
-                blockCount > 0 ? Icons.star : Icons.star_border,
-                color: blockCount > 0
+                Icons.star,
+                color: blockCount >= stars['one']
                     ? Color.fromRGBO(207, 255, 4, 1)
                     : Color.fromRGBO(31, 31, 31, 1),
               ),
               SizedBox(
-                width: (MediaQuery.of(context).size.width * .75 * 0.4) - 30,
+                width: (MediaQuery.of(context).size.width *
+                        .75 *
+                        (1 / stars['three']) *
+                        (stars['two'] - 1)) -
+                    30,
               ),
               Icon(
-                blockCount > 2 ? Icons.star : Icons.star_border,
-                color: blockCount > 2
+                Icons.star,
+                color: blockCount >= stars['two']
                     ? Color.fromRGBO(207, 255, 4, 1)
                     : Color.fromRGBO(31, 31, 31, 1),
               ),
               SizedBox(
-                width: (MediaQuery.of(context).size.width * .75 * 0.4) - 45,
+                width: (MediaQuery.of(context).size.width *
+                        .75 *
+                        (1 / stars['three']) *
+                        (stars['three'] - stars['two'])) -
+                    45,
               ),
               Icon(
-                blockCount >= 5 ? Icons.star : Icons.star_border,
-                color: blockCount >= 5
+                Icons.star,
+                color: blockCount >= stars['three']
                     ? Color.fromRGBO(207, 255, 4, 1)
                     : Color.fromRGBO(31, 31, 31, 1),
               ),
@@ -56,14 +67,14 @@ class _BlocksProgressBarState extends State<BlocksProgressBar> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Consumer<Map>(
-                builder: (context, map, child) {
+              Consumer<Grid>(
+                builder: (context, grid, child) {
                   return LinearPercentIndicator(
                     animation: true,
                     animateFromLastPercent: true,
                     backgroundColor: Color.fromRGBO(31, 31, 31, 1),
                     progressColor: Colors.teal,
-                    percent: map.blockPercentage,
+                    percent: grid.blockPercentage,
                     lineHeight: 15,
                     width: MediaQuery.of(context).size.width * 0.75,
                   );

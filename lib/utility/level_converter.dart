@@ -27,8 +27,9 @@ class LevelConverter {
       enemies.add(Block(position, status, route, id));
     });
     int blockCount = level['blockCount'];
+    Map<String, int> stars = level['stars'];
 
-    return Level(levelNumber, dimensions, enemies, blockCount);
+    return Level(levelNumber, dimensions, enemies, blockCount, stars);
   }
 }
 

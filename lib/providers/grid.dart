@@ -2,29 +2,32 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import './block.dart';
-import './level.dart';
+import 'block.dart';
+import 'level.dart';
 
-class Map with ChangeNotifier {
-  List<List<Block>> _map;
+class Grid with ChangeNotifier {
+  List<List<Block>> _grid;
   List<Block> _enemies = List();
   int _blockCount;
   int _startingBlockCount;
+  Map<String, int> _stars;
   List<int> _enemiesToBeRemoved = List();
   int _currentlyHighlightColumn;
-  double _blockPercentage = 1.0;
+  double _blockPercentage;
 
-  List<List<Block>> get map {
-    return this._map;
+  List<List<Block>> get grid {
+    return this._grid;
   }
 
-  Map(Level level) {
+  Grid(Level level) {
     if (level != null) {
       this._enemies = level.enemies;
       this._startingBlockCount = level.blockCount;
       this._blockCount = this._startingBlockCount;
+      this._stars = level.stars;
+      this._blockPercentage = this._blockCount / this._stars['three'];
       if (level.levelDimensions.rows > 0 && level.levelDimensions.columns > 0) {
-        _buildMap(level.levelDimensions.rows, level.levelDimensions.columns);
+        _buildGrid(level.levelDimensions.rows, level.levelDimensions.columns);
         _placeEnemies();
       }
     }
@@ -38,8 +41,16 @@ class Map with ChangeNotifier {
     return this._blockCount;
   }
 
-  _buildMap(int rows, int columns) {
-    this._map = List.generate(
+  int get startingBlockCount {
+    return this._startingBlockCount;
+  }
+
+  Map<String, int> get stars {
+    return this._stars;
+  }
+
+  _buildGrid(int rows, int columns) {
+    this._grid = List.generate(
         rows,
         (i) => List.generate(
             columns,
@@ -52,7 +63,7 @@ class Map with ChangeNotifier {
 
   _placeEnemies() {
     this._enemies.forEach((enemy) {
-      this._map[enemy.position.row][enemy.position.column] = enemy;
+      this._grid[enemy.position.row][enemy.position.column] = enemy;
     });
     _moveEnemies();
   }
@@ -60,18 +71,18 @@ class Map with ChangeNotifier {
   _markCellAsEmpty(int row, int column) {
     bool high = false;
     if (this._currentlyHighlightColumn == column) {
-      high = this._map[row][column].highlighted;
+      high = this._grid[row][column].highlighted;
     }
-    this._map[row][column] =
+    this._grid[row][column] =
         Block(Position(row, column), BlockStatus.EMPTY, []);
-    this._map[row][column].setHighlighted(high);
+    this._grid[row][column].setHighlighted(high);
   }
 
   _markCellAsAlly(int row, int column) {
-    bool high = this._map[row][column].highlighted;
-    this._map[row][column] =
+    bool high = this._grid[row][column].highlighted;
+    this._grid[row][column] =
         Block(Position(row, column), BlockStatus.ALLY, [Direction.DOWN]);
-    this._map[row][column].setHighlighted(high);
+    this._grid[row][column].setHighlighted(high);
   }
 
   _moveEnemies() {
@@ -102,38 +113,38 @@ class Map with ChangeNotifier {
   _moveEnemyLeft(Block enemy) {
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
     enemy.setPosition(enemy.position.row, enemy.position.column - 1);
-    this._map[enemy.position.row][enemy.position.column] = enemy;
+    this._grid[enemy.position.row][enemy.position.column] = enemy;
   }
 
   _moveEnemyRight(Block enemy) {
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
     enemy.setPosition(enemy.position.row, enemy.position.column + 1);
-    this._map[enemy.position.row][enemy.position.column] = enemy;
+    this._grid[enemy.position.row][enemy.position.column] = enemy;
   }
 
   _moveEnemyUp(Block enemy) {
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
-    if (this._map[enemy.position.row - 1][enemy.position.column].status ==
+    if (this._grid[enemy.position.row - 1][enemy.position.column].status ==
         BlockStatus.ALLY) {
       this._enemiesToBeRemoved.add(enemy.id);
     } else {
       enemy.setPosition(enemy.position.row - 1, enemy.position.column);
-      this._map[enemy.position.row][enemy.position.column] = enemy;
+      this._grid[enemy.position.row][enemy.position.column] = enemy;
     }
   }
 
   _moveEnemyDown(Block enemy) {
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
     enemy.setPosition(enemy.position.row + 1, enemy.position.column);
-    this._map[enemy.position.row][enemy.position.column] = enemy;
+    this._grid[enemy.position.row][enemy.position.column] = enemy;
   }
 
   dropBlock(int column) {
-    if (this._map[0][column].status == BlockStatus.EMPTY &&
+    if (this._grid[0][column].status == BlockStatus.EMPTY &&
         this._blockCount > 0) {
       this._blockCount -= 1;
       this._calculatePercentageLeft();
-      this._map[0][column] =
+      this._grid[0][column] =
           Block(Position(0, column), BlockStatus.ALLY, [Direction.DOWN]);
       notifyListeners();
       _queueAllyMove(0, column, Direction.DOWN);
@@ -142,7 +153,7 @@ class Map with ChangeNotifier {
 
   _queueAllyMove(int row, int column, Direction direction) {
     Timer(Duration(milliseconds: 500), () {
-      if (this._map[row][column].status == BlockStatus.ENEMY) {
+      if (this._grid[row][column].status == BlockStatus.ENEMY) {
         return;
       }
       if (direction == Direction.DOWN) {
@@ -152,15 +163,15 @@ class Map with ChangeNotifier {
   }
 
   _moveAllyDown(int row, int column) {
-    if (row >= this._map.length - 1) {
+    if (row >= this._grid.length - 1) {
       this._markCellAsEmpty(row, column);
-    } else if (this._map[row + 1][column].status == BlockStatus.EMPTY ||
-        this._map[row + 1][column].status == BlockStatus.ENEMY) {
+    } else if (this._grid[row + 1][column].status == BlockStatus.EMPTY ||
+        this._grid[row + 1][column].status == BlockStatus.ENEMY) {
       this._markCellAsEmpty(row, column);
-      if (this._map[row + 1][column].status == BlockStatus.ENEMY) {
+      if (this._grid[row + 1][column].status == BlockStatus.ENEMY) {
         this._blockCount += 1;
         this._calculatePercentageLeft();
-        this._removeEnemy(this._map[row + 1][column].id);
+        this._removeEnemy(this._grid[row + 1][column].id);
       }
       this._markCellAsAlly(row + 1, column);
       _queueAllyMove(row + 1, column, Direction.DOWN);
@@ -172,26 +183,26 @@ class Map with ChangeNotifier {
     this._enemies.removeWhere((enemy) => enemy.id == id);
   }
 
-  clearMap() {
+  clearGrid() {
     if (this._enemies.length > 0) {
       this._enemies = [];
     }
   }
 
   highlightColumn(int column) {
-    this._map.forEach((row) {
+    this._grid.forEach((row) {
       row[column].setHighlighted(true);
     });
     notifyListeners();
   }
 
   unHighlightColumn(int column) {
-    this._map.forEach((row) => row[column].setHighlighted(false));
+    this._grid.forEach((row) => row[column].setHighlighted(false));
     notifyListeners();
   }
 
   void _calculatePercentageLeft() {
-    this._blockPercentage = this._blockCount / this._startingBlockCount;
+    this._blockPercentage = this._blockCount / this._stars['three'];
   }
 
   double get blockPercentage {
