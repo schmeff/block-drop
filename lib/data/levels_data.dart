@@ -20,7 +20,7 @@ class LevelsData {
       "enemies": [
         {
           "id": 0,
-          "position": {"row": 4, "column": 0},
+          "position": {"row": 1, "column": 4},
           "status": 1,
           "route": [2, 2, 3, 3]
         }
@@ -34,7 +34,7 @@ class LevelsData {
       "enemies": [
         {
           "id": 0,
-          "position": {"row": 4, "column": 0},
+          "position": {"row": 4, "column": 4},
           "status": 1,
           "route": [0, 0, 1, 1]
         }

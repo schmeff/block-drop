@@ -71,7 +71,7 @@ class Grid with ChangeNotifier {
   _markCellAsEmpty(int row, int column) {
     bool high = false;
     if (this._currentlyHighlightColumn == column) {
-      high = this._grid[row][column].highlighted;
+      high = true;
     }
     this._grid[row][column] =
         Block(Position(row, column), BlockStatus.EMPTY, []);

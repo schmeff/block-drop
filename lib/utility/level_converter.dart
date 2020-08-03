@@ -18,7 +18,7 @@ class LevelConverter {
     level['enemies'].forEach((enemy) {
       int id = enemy['id'];
       Position position =
-          Position(enemy['position']['row'], enemy['position']['row']);
+          Position(enemy['position']['row'], enemy['position']['column']);
       BlockStatus status = BlockStatus.values[enemy['status']];
       List<Direction> route = List<Direction>.from(enemy['route']
               .map((direction) => Direction.values[direction])
