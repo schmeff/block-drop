@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../widgets/grid_layout.dart';
 import '../widgets/block_progress_bar.dart';
 import '../widgets/game_over_dialog.dart';
+import '../widgets/game_won_dialog.dart';
 
 import '../providers/grid.dart';
 import '../providers/levels.dart';
@@ -87,6 +88,10 @@ class _GameScreenState extends State<GameScreen> {
             Consumer<Grid>(
               builder: (context, grid, child) =>
                   grid.isGameOver ? GameOverDialog() : SizedBox(),
+            ),
+            Consumer<Grid>(
+              builder: (context, grid, child) =>
+                  grid.isGameWon ? GameWonDialog() : SizedBox(),
             ),
           ],
         ),

@@ -17,6 +17,7 @@ class _GameOverDialogState extends State<GameOverDialog> {
   void showGameOverDialog() {
     showGeneralDialog(
       barrierDismissible: false,
+      barrierColor: Colors.black38,
       context: context,
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         final curvedValue = Curves.easeIn.transform(animation.value) - 1.0;
@@ -112,7 +113,7 @@ class _GameOverDialogState extends State<GameOverDialog> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      'Restart  ',
+                                      'Restart',
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400,
@@ -143,7 +144,7 @@ class _GameOverDialogState extends State<GameOverDialog> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      'Level Selection  ',
+                                      'Level Selection',
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400,

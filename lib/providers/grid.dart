@@ -15,6 +15,7 @@ class Grid with ChangeNotifier {
   int _currentlyHighlightColumn;
   double _blockPercentage;
   bool _isGameOver = false;
+  bool _isGameWon = false;
   Level _level;
 
   List<List<Block>> get grid {
@@ -50,6 +51,14 @@ class Grid with ChangeNotifier {
 
   Map<String, int> get stars {
     return this._stars;
+  }
+
+  bool get isGameWon {
+    return this._isGameWon;
+  }
+
+  void setIsGameWon(bool isGameWon) {
+    this._isGameWon = isGameWon;
   }
 
   bool get isGameOver {
@@ -146,6 +155,8 @@ class Grid with ChangeNotifier {
     if (this._grid[enemy.position.row - 1][enemy.position.column].status ==
         BlockStatus.ALLY) {
       this._enemiesToBeRemoved.add(enemy.id);
+      this._blockCount += 1;
+      this._calculatePercentageLeft();
     } else {
       enemy.setPosition(enemy.position.row - 1, enemy.position.column);
       this._grid[enemy.position.row][enemy.position.column] = enemy;
@@ -201,6 +212,9 @@ class Grid with ChangeNotifier {
 
   _removeEnemy(int id) {
     this._enemies.removeWhere((enemy) => enemy.id == id);
+    if (this._enemies.length <= 0) {
+      this._isGameWon = true;
+    }
   }
 
   clearGrid() {
