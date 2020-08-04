@@ -14,6 +14,8 @@ class Grid with ChangeNotifier {
   List<int> _enemiesToBeRemoved = List();
   int _currentlyHighlightColumn;
   double _blockPercentage;
+  bool _isGameOver = false;
+  Level _level;
 
   List<List<Block>> get grid {
     return this._grid;
@@ -26,6 +28,7 @@ class Grid with ChangeNotifier {
       this._blockCount = this._startingBlockCount;
       this._stars = level.stars;
       this._blockPercentage = this._blockCount / this._stars['three'];
+      this._level = level;
       if (level.levelDimensions.rows > 0 && level.levelDimensions.columns > 0) {
         _buildGrid(level.levelDimensions.rows, level.levelDimensions.columns);
         _placeEnemies();
@@ -47,6 +50,14 @@ class Grid with ChangeNotifier {
 
   Map<String, int> get stars {
     return this._stars;
+  }
+
+  bool get isGameOver {
+    return this._isGameOver;
+  }
+
+  void setIsGameOver(bool isGameOver) {
+    this._isGameOver = isGameOver;
   }
 
   _buildGrid(int rows, int columns) {
@@ -112,12 +123,20 @@ class Grid with ChangeNotifier {
 
   _moveEnemyLeft(Block enemy) {
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
+    if (this._grid[enemy.position.row][enemy.position.column - 1].status ==
+        BlockStatus.ALLY) {
+      this._checkForAllyBlocks();
+    }
     enemy.setPosition(enemy.position.row, enemy.position.column - 1);
     this._grid[enemy.position.row][enemy.position.column] = enemy;
   }
 
   _moveEnemyRight(Block enemy) {
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
+    if (this._grid[enemy.position.row][enemy.position.column + 1].status ==
+        BlockStatus.ALLY) {
+      this._checkForAllyBlocks();
+    }
     enemy.setPosition(enemy.position.row, enemy.position.column + 1);
     this._grid[enemy.position.row][enemy.position.column] = enemy;
   }
@@ -165,6 +184,7 @@ class Grid with ChangeNotifier {
   _moveAllyDown(int row, int column) {
     if (row >= this._grid.length - 1) {
       this._markCellAsEmpty(row, column);
+      this._checkForAllyBlocks();
     } else if (this._grid[row + 1][column].status == BlockStatus.EMPTY ||
         this._grid[row + 1][column].status == BlockStatus.ENEMY) {
       this._markCellAsEmpty(row, column);
@@ -207,5 +227,18 @@ class Grid with ChangeNotifier {
 
   double get blockPercentage {
     return this._blockPercentage;
+  }
+
+  void _checkForAllyBlocks() {
+    if (this._blockCount <= 0) {
+      bool hasAlly = false;
+      this._grid.forEach((row) {
+        if (!hasAlly)
+          hasAlly = row.any((block) => block.status == BlockStatus.ALLY);
+      });
+      if (!hasAlly) {
+        this._isGameOver = true;
+      }
+    }
   }
 }

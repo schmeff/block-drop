@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import './screens/game_screen.dart';
 import './screens/level_select_screen.dart';
+import './screens/loading_screen.dart';
 
 import 'providers/grid.dart';
 import './providers/levels.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LevelSelectScreen.routeName: (ctx) => LevelSelectScreen(),
         GameScreen.routeName: (ctx) => GameScreen(),
+        LoadingScreen.routeName: (ctx) => LoadingScreen(),
       },
     );
   }
