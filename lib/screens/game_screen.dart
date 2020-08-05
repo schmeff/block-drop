@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:game/screens/level_select_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/grid_layout.dart';
@@ -28,13 +31,28 @@ class _GameScreenState extends State<GameScreen> {
         body: Stack(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 40),
+              margin: const EdgeInsets.only(bottom: 40, top: 20),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      IconButton(
+                          icon: Platform.isAndroid
+                              ? Icon(Icons.arrow_back)
+                              : Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            Provider.of<Grid>(context, listen: false)
+                                .clearGrid();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                LevelSelectScreen.routeName, (route) => false);
+                          }),
+                    ],
+                  ),
                   Text(
                     "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
                     style:
