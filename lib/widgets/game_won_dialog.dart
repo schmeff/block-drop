@@ -163,13 +163,14 @@ class _GameWonDialogState extends State<GameWonDialog> {
         );
       },
       transitionDuration: Duration(milliseconds: 300),
-      pageBuilder: (context, animation, secondaryAnimation) {},
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return null;
+      },
     );
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Timer(Duration(milliseconds: 500), () => showGameWonDialog());

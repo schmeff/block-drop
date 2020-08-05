@@ -20,10 +20,16 @@ class LevelsData {
       "enemies": [
         {
           "id": 0,
-          "position": {"row": 1, "column": 4},
+          "position": {"row": 2, "column": 4},
           "status": 1,
-          "route": [2, 2, 3, 3]
-        }
+          "route": [2, 2, 2, 2, 3, 3, 3, 3]
+        },
+        {
+          "id": 1,
+          "position": {"row": 3, "column": 0},
+          "status": 1,
+          "route": [3, 3, 3, 3, 2, 2, 2, 2]
+        },
       ],
       "blockCount": 5,
       "stars": {"one": 1, "two": 3, "three": 5},

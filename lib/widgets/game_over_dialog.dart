@@ -166,7 +166,9 @@ class _GameOverDialogState extends State<GameOverDialog> {
         );
       },
       transitionDuration: Duration(milliseconds: 300),
-      pageBuilder: (context, animation, secondaryAnimation) {},
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return null;
+      },
     );
   }
 

@@ -16,7 +16,6 @@ class Grid with ChangeNotifier {
   double _blockPercentage;
   bool _isGameOver = false;
   bool _isGameWon = false;
-  Level _level;
 
   List<List<Block>> get grid {
     return this._grid;
@@ -29,7 +28,6 @@ class Grid with ChangeNotifier {
       this._blockCount = this._startingBlockCount;
       this._stars = level.stars;
       this._blockPercentage = this._blockCount / this._stars['three'];
-      this._level = level;
       if (level.levelDimensions.rows > 0 && level.levelDimensions.columns > 0) {
         _buildGrid(level.levelDimensions.rows, level.levelDimensions.columns);
         _placeEnemies();
@@ -131,23 +129,31 @@ class Grid with ChangeNotifier {
   }
 
   _moveEnemyLeft(Block enemy) {
+    bool checkForAlly = false;
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
     if (this._grid[enemy.position.row][enemy.position.column - 1].status ==
         BlockStatus.ALLY) {
-      this._checkForAllyBlocks();
+      checkForAlly = true;
     }
     enemy.setPosition(enemy.position.row, enemy.position.column - 1);
     this._grid[enemy.position.row][enemy.position.column] = enemy;
+    if (checkForAlly) {
+      this._checkForAllyBlocks();
+    }
   }
 
   _moveEnemyRight(Block enemy) {
+    bool checkForAlly = false;
     _markCellAsEmpty(enemy.position.row, enemy.position.column);
     if (this._grid[enemy.position.row][enemy.position.column + 1].status ==
         BlockStatus.ALLY) {
-      this._checkForAllyBlocks();
+      checkForAlly = true;
     }
     enemy.setPosition(enemy.position.row, enemy.position.column + 1);
     this._grid[enemy.position.row][enemy.position.column] = enemy;
+    if (checkForAlly) {
+      this._checkForAllyBlocks();
+    }
   }
 
   _moveEnemyUp(Block enemy) {
