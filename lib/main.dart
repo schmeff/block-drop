@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import './screens/game_screen.dart';
 import './screens/level_select_screen.dart';
+import './screens/group_select_screen.dart';
 import './screens/loading_screen.dart';
 
 import 'providers/grid.dart';
@@ -18,8 +19,8 @@ void main() {
       ),
       ChangeNotifierProxyProvider<Levels, Grid>(
         create: (ctx) => Grid(null),
-        update: (ctx, levels, map) =>
-            Grid(levels.getLevel(levels.currentLevelNumber)),
+        update: (ctx, levels, map) => Grid(
+            levels.getLevel(levels.currentGroup, levels.currentLevelNumber)),
       ),
     ],
   ));
@@ -39,9 +40,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LevelSelectScreen(),
+      home: GroupSelectScreen(),
       routes: {
         LevelSelectScreen.routeName: (ctx) => LevelSelectScreen(),
+        GroupSelectScreen.routeName: (ctx) => GroupSelectScreen(),
         GameScreen.routeName: (ctx) => GameScreen(),
         LoadingScreen.routeName: (ctx) => LoadingScreen(),
       },

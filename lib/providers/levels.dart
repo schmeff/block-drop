@@ -8,6 +8,7 @@ import '../utility/level_converter.dart';
 
 class Levels with ChangeNotifier {
   int _currentLevelNumber;
+  String _currentGroup;
 
   int get currentLevelNumber {
     return this._currentLevelNumber;
@@ -18,11 +19,24 @@ class Levels with ChangeNotifier {
     notifyListeners();
   }
 
-  List<int> get levels {
+  String get currentGroup {
+    return this._currentGroup;
+  }
+
+  void setCurrentGroup(String group) {
+    this._currentGroup = group;
+    notifyListeners();
+  }
+
+  List<String> get groups {
     return LevelsData.levels.keys.toList();
   }
 
-  Level getLevel(int number) {
-    return LevelConverter.getLevel(number);
+  List<int> get levels {
+    return LevelsData.levels[this._currentGroup].keys.toList();
+  }
+
+  Level getLevel(String group, int number) {
+    return LevelConverter.getLevel(group, number);
   }
 }
