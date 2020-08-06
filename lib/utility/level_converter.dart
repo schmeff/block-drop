@@ -8,8 +8,8 @@ import '../providers/block.dart';
 class LevelConverter {
   static String toJson(Level level) => jsonEncode(level);
 
-  static Level getLevel(int number) {
-    Map<String, dynamic> level = LevelsData.levels[number];
+  static Level getLevel(String group, int number) {
+    Map<String, dynamic> level = LevelsData.levels[group][number];
 
     int levelNumber = level['number'];
     LevelDimensions dimensions = LevelDimensions(
@@ -34,6 +34,6 @@ class LevelConverter {
 }
 
 void main() {
-  Level l = LevelConverter.getLevel(1);
+  Level l = LevelConverter.getLevel("5x5", 1);
   print(l);
 }
