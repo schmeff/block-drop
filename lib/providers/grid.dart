@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'block.dart';
-import 'level.dart';
+import './block.dart';
+import './level.dart';
+
+import '../utility/player_data.dart';
 
 class Grid with ChangeNotifier {
   List<List<Block>> _grid;
@@ -16,12 +18,14 @@ class Grid with ChangeNotifier {
   double _blockPercentage;
   bool _isGameOver = false;
   bool _isGameWon = false;
+  final String _levelGroup;
+  final int _levelNumber;
 
   List<List<Block>> get grid {
     return this._grid;
   }
 
-  Grid(Level level) {
+  Grid(Level level, this._levelGroup, this._levelNumber) {
     if (level != null) {
       this._enemies = level.enemies;
       this._startingBlockCount = level.blockCount;
@@ -220,6 +224,8 @@ class Grid with ChangeNotifier {
     this._enemies.removeWhere((enemy) => enemy.id == id);
     if (this._enemies.length <= 0) {
       this._isGameWon = true;
+      PlayerData.setScore(this._levelGroup, this._levelNumber, this._blockCount,
+          this.calculatedStars(this._stars));
     }
   }
 
@@ -259,6 +265,18 @@ class Grid with ChangeNotifier {
       if (!hasAlly) {
         this._isGameOver = true;
       }
+    }
+  }
+
+  int calculatedStars(Map<String, int> stars) {
+    if (this._blockCount >= stars['three']) {
+      return 3;
+    } else if (this._blockCount >= stars['two']) {
+      return 2;
+    } else if (this._blockCount >= stars['one']) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 }
