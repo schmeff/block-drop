@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game/utility/player_data.dart';
 
 import './level.dart';
 
@@ -32,7 +33,9 @@ class Levels with ChangeNotifier {
     return LevelsData.levels.keys.toList();
   }
 
-  List<int> get levels {
+  Future<List<int>> get levels async {
+    final groupScores = await PlayerData.getGroupScores(this._currentGroup);
+
     return LevelsData.levels[this._currentGroup].keys.toList();
   }
 

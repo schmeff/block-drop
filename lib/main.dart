@@ -18,9 +18,11 @@ void main() {
         create: (ctx) => Levels(),
       ),
       ChangeNotifierProxyProvider<Levels, Grid>(
-        create: (ctx) => Grid(null),
+        create: (ctx) => Grid(null, null, null),
         update: (ctx, levels, map) => Grid(
-            levels.getLevel(levels.currentGroup, levels.currentLevelNumber)),
+            levels.getLevel(levels.currentGroup, levels.currentLevelNumber),
+            levels.currentGroup,
+            levels.currentLevelNumber),
       ),
     ],
   ));
