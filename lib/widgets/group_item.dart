@@ -18,19 +18,24 @@ class GroupItem extends StatelessWidget {
         Navigator.of(context).pushNamed(LevelSelectScreen.routeName);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 12.0),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(5.0),
+          color: Color.fromRGBO(31, 31, 31, 1),
+          border: Border.all(
             color: Theme.of(context).primaryColor,
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black45,
-                  offset: Offset(
-                    0.0,
-                    5.0,
-                  ),
-                  blurRadius: 5.0),
-            ]),
+            width: 3.0,
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black45,
+                offset: Offset(
+                  0.0,
+                  5.0,
+                ),
+                blurRadius: 5.0),
+          ],
+        ),
         child: FractionallySizedBox(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +43,7 @@ class GroupItem extends StatelessWidget {
             children: <Widget>[
               Text(
                 this.group,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
               ),
             ],
           ),
