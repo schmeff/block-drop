@@ -19,8 +19,17 @@ class LevelsGridItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(
             color: Theme.of(context).primaryColor,
-            width: 4.0,
+            width: 3.0,
           ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black45,
+                offset: Offset(
+                  0.0,
+                  5.0,
+                ),
+                blurRadius: 5.0),
+          ],
         ),
         padding: const EdgeInsets.all(8.0),
         child: Column(

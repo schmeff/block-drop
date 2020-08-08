@@ -9,11 +9,25 @@ class GroupSelectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Levels',
+                style: TextStyle(
+                  fontSize: 26.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.8,
-            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.75,
             child: GroupsList(),
           ),
         ],
