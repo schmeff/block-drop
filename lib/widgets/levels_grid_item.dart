@@ -14,10 +14,27 @@ class LevelsGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(31, 31, 31, 1),
+          borderRadius: BorderRadius.circular(5.0),
+          border: Border.all(
+            color: Theme.of(context).primaryColor,
+            width: 4.0,
+          ),
+        ),
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          levelNumber.toString(),
-          style: TextStyle(color: Colors.white, fontSize: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              levelNumber.toString(),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
       ),
       onTap: () {

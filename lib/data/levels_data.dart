@@ -49,6 +49,48 @@ class LevelsData {
         "blockCount": 5,
         "stars": {"one": 1, "two": 3, "three": 7},
       },
+      4: {
+        "number": 5,
+        "levelDimensions": {"rows": 5, "columns": 5},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 4, "column": 4},
+            "status": 1,
+            "route": [0, 0, 1, 1]
+          }
+        ],
+        "blockCount": 5,
+        "stars": {"one": 1, "two": 3, "three": 7},
+      },
+      5: {
+        "number": 5,
+        "levelDimensions": {"rows": 5, "columns": 5},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 4, "column": 4},
+            "status": 1,
+            "route": [0, 0, 1, 1]
+          }
+        ],
+        "blockCount": 5,
+        "stars": {"one": 1, "two": 3, "three": 7},
+      },
+      6: {
+        "number": 6,
+        "levelDimensions": {"rows": 5, "columns": 5},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 4, "column": 4},
+            "status": 1,
+            "route": [0, 0, 1, 1]
+          }
+        ],
+        "blockCount": 5,
+        "stars": {"one": 1, "two": 3, "three": 7},
+      },
     },
     "6x6": {},
     "7x7": {},

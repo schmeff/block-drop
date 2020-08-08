@@ -11,14 +11,17 @@ class LevelsGrid extends StatelessWidget {
     return FutureBuilder(
       future: Provider.of<Levels>(context).levels,
       builder: (ctx, levelsSnapshot) => levelsSnapshot.hasData
-          ? GridView.count(
-              crossAxisCount: 5,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              padding: const EdgeInsets.all(20.0),
-              children: levelsSnapshot.data
-                  .map<Widget>((levelNumber) => LevelsGridItem(levelNumber))
-                  .toList(),
+          ? Container(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: GridView.count(
+                crossAxisCount: 5,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                padding: const EdgeInsets.all(20.0),
+                children: levelsSnapshot.data
+                    .map<Widget>((levelNumber) => LevelsGridItem(levelNumber))
+                    .toList(),
+              ),
             )
           : Container(),
     );
