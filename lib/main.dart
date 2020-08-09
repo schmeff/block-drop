@@ -6,6 +6,7 @@ import './screens/game_screen.dart';
 import './screens/level_select_screen.dart';
 import './screens/group_select_screen.dart';
 import './screens/loading_screen.dart';
+import './screens/main_screen.dart';
 
 import 'providers/grid.dart';
 import './providers/levels.dart';
@@ -42,12 +43,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: GroupSelectScreen(),
+      home: MainScreen(),
       routes: {
         LevelSelectScreen.routeName: (ctx) => LevelSelectScreen(),
         GroupSelectScreen.routeName: (ctx) => GroupSelectScreen(),
         GameScreen.routeName: (ctx) => GameScreen(),
         LoadingScreen.routeName: (ctx) => LoadingScreen(),
+        MainScreen.routeName: (ctx) => MainScreen(),
       },
     );
   }

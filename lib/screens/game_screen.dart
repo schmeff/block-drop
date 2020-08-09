@@ -25,7 +25,9 @@ class _GameScreenState extends State<GameScreen> {
     return WillPopScope(
       onWillPop: () async {
         Provider.of<Grid>(context, listen: false).clearGrid();
-        return true;
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            LevelSelectScreen.routeName, (route) => false);
+        return false;
       },
       child: Scaffold(
         body: Stack(
@@ -42,15 +44,15 @@ class _GameScreenState extends State<GameScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       IconButton(
-                          icon: Platform.isAndroid
-                              ? Icon(Icons.arrow_back)
-                              : Icon(Icons.arrow_back_ios),
-                          onPressed: () {
-                            Provider.of<Grid>(context, listen: false)
-                                .clearGrid();
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                LevelSelectScreen.routeName, (route) => false);
-                          }),
+                        icon: Platform.isAndroid
+                            ? Icon(Icons.arrow_back)
+                            : Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          Provider.of<Grid>(context, listen: false).clearGrid();
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              LevelSelectScreen.routeName, (route) => false);
+                        },
+                      ),
                     ],
                   ),
                   Text(
