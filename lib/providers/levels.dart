@@ -42,4 +42,15 @@ class Levels with ChangeNotifier {
   Level getLevel(String group, int number) {
     return LevelConverter.getLevel(group, number);
   }
+
+  int get nextLevelNumber {
+    List<int> levelNumbers =
+        LevelsData.levels[this._currentGroup].keys.toList();
+
+    if (levelNumbers.contains(this._currentLevelNumber + 1)) {
+      return this._currentLevelNumber + 1;
+    }
+
+    return null;
+  }
 }
