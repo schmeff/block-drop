@@ -181,7 +181,8 @@ class Grid with ChangeNotifier {
 
   dropBlock(int column) {
     if (this._grid[0][column].status == BlockStatus.EMPTY &&
-        this._blockCount > 0) {
+        this._blockCount > 0 &&
+        !this._isGameWon) {
       this._blockCount -= 1;
       this._calculatePercentageLeft();
       this._grid[0][column] =
