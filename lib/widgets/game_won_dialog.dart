@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:game/screens/game_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,8 @@ class _GameWonDialogState extends State<GameWonDialog> {
       barrierDismissible: false,
       barrierColor: Colors.black38,
       transitionBuilder: (context, animation, secondaryAnimation, child) {
+        int nextLevelNumber =
+            Provider.of<Levels>(context, listen: false).nextLevelNumber;
         final curvedValue = Curves.easeIn.transform(animation.value) - 1.0;
         return Transform(
           transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
@@ -86,40 +89,50 @@ class _GameWonDialogState extends State<GameWonDialog> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        InkWell(
-                          onTap: () {
-                            print('next level');
-                          },
-                          enableFeedback: true,
-                          child: Container(
-                            height: 50,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  'Next Level',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
+                        nextLevelNumber != null
+                            ? InkWell(
+                                onTap: () {
+                                  if (nextLevelNumber != null) {
+                                    Provider.of<Levels>(context, listen: false)
+                                        .setCurrentLevelNumber(nextLevelNumber);
+                                    Provider.of<Grid>(context, listen: false)
+                                        .clearGrid();
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            GameScreen.routeName,
+                                            (route) => false);
+                                  }
+                                },
+                                enableFeedback: true,
+                                child: Container(
+                                  height: 50,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'Next Level',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
                         SizedBox(
                           height: 10,
                         ),
                         InkWell(
                           onTap: () {
-                            // Navigator.of(context).pushReplacementNamed(
-                            //     LoadingScreen.routeName);
                             Provider.of<Grid>(context, listen: false)
                                 .clearGrid();
                             Provider.of<Grid>(context, listen: false)
