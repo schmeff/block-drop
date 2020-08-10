@@ -92,7 +92,22 @@ class LevelsData {
         "stars": {"one": 1, "two": 3, "three": 7},
       },
     },
-    "6x6": {},
+    "6x6": {
+      1: {
+        "number": 1,
+        "levelDimensions": {"rows": 6, "columns": 6},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 4, "column": 4},
+            "status": 1,
+            "route": [0, 0, 1, 1]
+          }
+        ],
+        "blockCount": 5,
+        "stars": {"one": 1, "two": 3, "three": 7},
+      },
+    },
     "7x7": {},
     "8x8": {},
     "9x9": {},

@@ -22,6 +22,9 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
+    int nextLevelNumber =
+        Provider.of<Levels>(context, listen: false).nextLevelNumber;
+    String nextGroup = Provider.of<Levels>(context, listen: false).nextGroup;
     return WillPopScope(
       onWillPop: () async {
         Provider.of<Grid>(context, listen: false).clearGrid();
@@ -110,8 +113,9 @@ class _GameScreenState extends State<GameScreen> {
                   grid.isGameOver ? GameOverDialog() : SizedBox(),
             ),
             Consumer<Grid>(
-              builder: (context, grid, child) =>
-                  grid.isGameWon ? GameWonDialog() : SizedBox(),
+              builder: (context, grid, child) => grid.isGameWon
+                  ? GameWonDialog(nextLevelNumber, nextGroup)
+                  : SizedBox(),
             ),
           ],
         ),
