@@ -21,14 +21,19 @@ class PlayerData {
       preferences.setStringList(group, [scoreData]);
     } else {
       List<String> scores = preferences.getStringList(group);
+      print(scores);
       String oldScore = scores.firstWhere(
         (score) => json.decode(score)['level'] == level,
         orElse: () => null,
       );
-      if (compareScores(
-          json.decode(oldScore)['remainingBlocks'], remainingBlocks)) {
+      if (oldScore == null) {
         scores.add(scoreData);
-        preferences.setStringList(group, [scoreData]);
+        preferences.setStringList(group, scores);
+      } else if (compareScores(
+          json.decode(oldScore)['remainingBlocks'], remainingBlocks)) {
+        scores.removeWhere((score) => json.decode(score)['level'] == level);
+        scores.add(scoreData);
+        preferences.setStringList(group, scores);
       }
     }
   }
