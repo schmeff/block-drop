@@ -61,6 +61,7 @@ class Grid with ChangeNotifier {
 
   void setIsGameWon(bool isGameWon) {
     this._isGameWon = isGameWon;
+    notifyListeners();
   }
 
   bool get isGameOver {
@@ -218,7 +219,9 @@ class Grid with ChangeNotifier {
       this._markCellAsAlly(row + 1, column);
       _queueAllyMove(row + 1, column, Direction.DOWN);
     }
-    notifyListeners();
+    if (!this._isGameWon || !this._isGameOver) {
+      notifyListeners();
+    }
   }
 
   _removeEnemy(int id) {

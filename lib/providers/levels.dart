@@ -53,4 +53,15 @@ class Levels with ChangeNotifier {
 
     return null;
   }
+
+  String get nextGroup {
+    List<String> groups = LevelsData.levels.keys.toList();
+
+    int groupIndex = groups.indexOf(this._currentGroup);
+    if (groupIndex < groups.length - 1) {
+      return groups[groupIndex + 1];
+    }
+
+    return null;
+  }
 }
