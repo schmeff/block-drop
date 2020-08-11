@@ -8,6 +8,7 @@ import '../widgets/grid_layout.dart';
 import '../widgets/block_progress_bar.dart';
 import '../widgets/game_over_dialog.dart';
 import '../widgets/game_won_dialog.dart';
+import '../widgets/exit_level_dialog.dart';
 
 import '../providers/grid.dart';
 import '../providers/levels.dart';
@@ -20,6 +21,22 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  showExitLevelDialog() {
+    showGeneralDialog(
+      barrierDismissible: false,
+      barrierColor: Colors.black38,
+      context: context,
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        final curvedValue = Curves.easeIn.transform(animation.value) - 1.0;
+        return ExitLevelDialog(curvedValue);
+      },
+      transitionDuration: Duration(milliseconds: 300),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return null;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     int nextLevelNumber =
@@ -27,9 +44,7 @@ class _GameScreenState extends State<GameScreen> {
     String nextGroup = Provider.of<Levels>(context, listen: false).nextGroup;
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<Grid>(context, listen: false).clearGrid();
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            LevelSelectScreen.routeName, (route) => false);
+        this.showExitLevelDialog();
         return false;
       },
       child: Scaffold(
@@ -51,9 +66,7 @@ class _GameScreenState extends State<GameScreen> {
                             ? Icon(Icons.arrow_back)
                             : Icon(Icons.arrow_back_ios),
                         onPressed: () {
-                          Provider.of<Grid>(context, listen: false).clearGrid();
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              LevelSelectScreen.routeName, (route) => false);
+                          this.showExitLevelDialog();
                         },
                       ),
                     ],
