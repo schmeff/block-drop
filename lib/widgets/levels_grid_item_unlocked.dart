@@ -5,10 +5,10 @@ import '../screens/game_screen.dart';
 
 import '../providers/levels.dart';
 
-class LevelsGridItem extends StatelessWidget {
-  final int levelNumber;
+class LevelsGridItemUnlocked extends StatelessWidget {
+  final Map level;
 
-  LevelsGridItem(this.levelNumber);
+  LevelsGridItemUnlocked(this.level);
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +31,47 @@ class LevelsGridItem extends StatelessWidget {
                 blurRadius: 5.0),
           ],
         ),
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(5.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              levelNumber.toString(),
+              level['level'].toString(),
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.star,
+                    size: 16.0,
+                    color: level['stars'] != null && level['stars'] >= 1
+                        ? Color.fromRGBO(207, 255, 4, 1)
+                        : Theme.of(context).primaryColorDark),
+                Icon(Icons.star,
+                    size: 16.0,
+                    color: level['stars'] != null && level['stars'] >= 2
+                        ? Color.fromRGBO(207, 255, 4, 1)
+                        : Theme.of(context).primaryColorDark),
+                Icon(
+                  Icons.star,
+                  size: 16.0,
+                  color: level['stars'] != null && level['stars'] >= 3
+                      ? Color.fromRGBO(207, 255, 4, 1)
+                      : Theme.of(context).primaryColorDark,
+                ),
+              ],
+            )
           ],
         ),
       ),
       onTap: () {
         Provider.of<Levels>(context, listen: false)
-            .setCurrentLevelNumber(this.levelNumber);
+            .setCurrentLevelNumber(level['level']);
         Navigator.of(context).pushNamed(GameScreen.routeName);
       },
     );

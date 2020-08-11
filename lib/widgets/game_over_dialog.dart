@@ -122,38 +122,7 @@ class _GameOverDialogState extends State<GameOverDialog> {
                                   ],
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushReplacementNamed(
-                                    LevelSelectScreen.routeName);
-                              },
-                              enableFeedback: true,
-                              child: Container(
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).backgroundColor,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      'Level Selection',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                            )
                           ],
                         )
                       ],

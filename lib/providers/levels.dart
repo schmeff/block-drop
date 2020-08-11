@@ -33,10 +33,36 @@ class Levels with ChangeNotifier {
     return LevelsData.levels.keys.toList();
   }
 
-  Future<List<int>> get levels async {
-    final groupScores = await PlayerData.getGroupScores(this._currentGroup);
+  Future<List<Map<String, dynamic>>> get levels async {
+    List groupScores =
+        await PlayerData.getGroupScores(this._currentGroup) as List;
 
-    return LevelsData.levels[this._currentGroup].keys.toList();
+    if (groupScores == null) {
+      groupScores = [];
+    }
+
+    List<int> levelNumbers =
+        LevelsData.levels[this._currentGroup].keys.toList();
+
+    List unlockedLevels = groupScores
+        .map((level) => {
+              'unlocked': true,
+              'level': level['level'],
+              'stars': level['stars']
+            })
+        .toList();
+    unlockedLevels.sort((l1, l2) => l1['level'].compareTo(l2['level']));
+    if (unlockedLevels.length < levelNumbers.length) {
+      unlockedLevels
+          .add({'unlocked': true, 'level': unlockedLevels.length + 1});
+      levelNumbers = unlockedLevels.length < levelNumbers.length
+          ? levelNumbers.sublist(unlockedLevels.length)
+          : [];
+      List lockedLevels =
+          levelNumbers.map((n) => {'unlocked': false, 'level': n}).toList();
+      unlockedLevels.addAll(lockedLevels);
+    }
+    return unlockedLevels;
   }
 
   Level getLevel(String group, int number) {
