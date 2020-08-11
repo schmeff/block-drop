@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../providers/levels.dart';
 
-import './levels_grid_item.dart';
+import 'levels_grid_item_unlocked.dart';
+import 'levels_grid_item_locked.dart';
 
 class LevelsGrid extends StatelessWidget {
   @override
@@ -19,7 +20,9 @@ class LevelsGrid extends StatelessWidget {
                 mainAxisSpacing: 10,
                 padding: const EdgeInsets.all(20.0),
                 children: levelsSnapshot.data
-                    .map<Widget>((levelNumber) => LevelsGridItem(levelNumber))
+                    .map<Widget>((level) => level['unlocked']
+                        ? LevelsGridItemUnlocked(level)
+                        : LevelsGridItemLocked(level))
                     .toList(),
               ),
             )

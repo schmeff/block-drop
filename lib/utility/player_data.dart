@@ -21,7 +21,6 @@ class PlayerData {
       preferences.setStringList(group, [scoreData]);
     } else {
       List<String> scores = preferences.getStringList(group);
-      print(scores);
       String oldScore = scores.firstWhere(
         (score) => json.decode(score)['level'] == level,
         orElse: () => null,
