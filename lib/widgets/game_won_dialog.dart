@@ -24,8 +24,6 @@ class _GameWonDialogState extends State<GameWonDialog> {
     var blockCount = Provider.of<Grid>(context, listen: false).blockCount;
     int currentLevelNumber =
         Provider.of<Levels>(context, listen: false).currentLevelNumber;
-    String currentGroup =
-        Provider.of<Levels>(context, listen: false).currentGroup;
     showGeneralDialog(
       context: context,
       barrierDismissible: false,
