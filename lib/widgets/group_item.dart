@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 import '../providers/levels.dart';
 
@@ -12,13 +13,15 @@ class GroupItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int totalLevels = Provider.of<Levels>(context, listen: false)
+        .getTotalLevelsLength(this.group);
     return InkWell(
       onTap: () {
         Provider.of<Levels>(context, listen: false).setCurrentGroup(this.group);
         Navigator.of(context).pushNamed(LevelSelectScreen.routeName);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12.0),
+        padding: EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           color: Color.fromRGBO(31, 31, 31, 1),
@@ -36,17 +39,63 @@ class GroupItem extends StatelessWidget {
                 blurRadius: 5.0),
           ],
         ),
-        child: FractionallySizedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                this.group,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+        child: Row(
+          children: <Widget>[
+            Flexible(
+              child: FractionallySizedBox(
+                widthFactor: 1,
               ),
-            ],
-          ),
+            ),
+            Flexible(
+              child: FractionallySizedBox(
+                widthFactor: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${this.group}',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Flexible(
+              child: FractionallySizedBox(
+                widthFactor: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FutureBuilder(
+                      future: Provider.of<Levels>(context)
+                          .getCompletedLevelsStarCount(this.group),
+                      builder: (ctx, starCount) => starCount.hasData
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Color.fromRGBO(207, 255, 4, 1),
+                                ),
+                                Text(
+                                  '${starCount.data.toString()}/${(totalLevels * 3).toString()}',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : SizedBox(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
