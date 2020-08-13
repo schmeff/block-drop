@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,12 +42,6 @@ class PlayerData {
       return null;
     }
     return preferences.getStringList(group).map((e) => json.decode(e)).toList();
-  }
-
-  static Future<Map> getLevelScore(String group, int level) async {
-    List<Map> g = await getGroupScores(group);
-
-    g.firstWhere((l) => l['level'] == level, orElse: () => null);
   }
 
   static bool compareScores(int oldScore, int newScore) {

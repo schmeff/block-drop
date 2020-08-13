@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:game/screens/level_select_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/grid_layout.dart';
@@ -71,10 +70,22 @@ class _GameScreenState extends State<GameScreen> {
                       ),
                     ],
                   ),
-                  Text(
-                    "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
-                    style:
-                        TextStyle(fontSize: 26.0, fontWeight: FontWeight.w500),
+                  Column(
+                    children: [
+                      Text(
+                        "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
+                        style: TextStyle(
+                            fontSize: 26.0, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        Provider.of<Levels>(context, listen: false)
+                            .currentGroup,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.white.withOpacity(0.7),
+                        ),
+                      ),
+                    ],
                   ),
                   BlocksProgressBar(),
                   Column(
