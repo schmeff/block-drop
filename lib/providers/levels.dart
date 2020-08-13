@@ -90,4 +90,19 @@ class Levels with ChangeNotifier {
 
     return null;
   }
+
+  int getTotalLevelsLength(String group) {
+    return LevelsData.levels[group].length;
+  }
+
+  Future<int> getCompletedLevelsStarCount(String group) async {
+    List groupScores = await PlayerData.getGroupScores(group) as List;
+
+    if (groupScores == null) {
+      return 0;
+    }
+    int totalStars = groupScores.fold(
+        0, (previousValue, current) => previousValue + current['stars']);
+    return totalStars;
+  }
 }

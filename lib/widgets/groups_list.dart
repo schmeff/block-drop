@@ -10,7 +10,6 @@ class GroupsList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> groups = Provider.of<Levels>(context, listen: false).groups;
     return ListView.builder(
-      padding: const EdgeInsets.all(8.0),
       itemCount: groups.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
