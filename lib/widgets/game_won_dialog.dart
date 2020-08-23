@@ -39,7 +39,7 @@ class _GameWonDialogState extends State<GameWonDialog> {
               child: Container(
                 padding: const EdgeInsets.all(20.0),
                 height: 250,
-                width: 100,
+                width: 250,
                 decoration: BoxDecoration(
                   color: Theme.of(context).backgroundColor,
                 ),
@@ -122,6 +122,15 @@ class _GameWonDialogState extends State<GameWonDialog> {
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).primaryColor,
                                     borderRadius: BorderRadius.circular(10.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black45,
+                                          offset: Offset(
+                                            0.0,
+                                            5.0,
+                                          ),
+                                          blurRadius: 5.0),
+                                    ],
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -165,6 +174,15 @@ class _GameWonDialogState extends State<GameWonDialog> {
                                         color: Theme.of(context).primaryColor,
                                         borderRadius:
                                             BorderRadius.circular(10.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black45,
+                                              offset: Offset(
+                                                0.0,
+                                                5.0,
+                                              ),
+                                              blurRadius: 5.0),
+                                        ],
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
