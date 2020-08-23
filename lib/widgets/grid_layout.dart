@@ -24,11 +24,9 @@ class GridLayout extends StatelessWidget {
     var gridHeight = MediaQuery.of(context).size.height / 2;
     var gridWidth = gridHeight;
     return Container(
-      padding: EdgeInsets.all(0.5),
       height: gridHeight + 1,
       width: gridWidth,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: mapRows(grid, gridHeight),
       ),
     );

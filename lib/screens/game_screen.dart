@@ -8,6 +8,7 @@ import '../widgets/block_progress_bar.dart';
 import '../widgets/game_over_dialog.dart';
 import '../widgets/game_won_dialog.dart';
 import '../widgets/exit_level_dialog.dart';
+import '../widgets/remaining_blocks.dart';
 
 import '../providers/grid.dart';
 import '../providers/levels.dart';
@@ -88,47 +89,8 @@ class _GameScreenState extends State<GameScreen> {
                     ],
                   ),
                   BlocksProgressBar(),
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            height: 30,
-                            width: 30,
-                            margin: EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(2.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Theme.of(context).primaryColor,
-                                  blurRadius: 2.0,
-                                  spreadRadius: 0.0,
-                                  offset: Offset(0.0, 0.0),
-                                )
-                              ],
-                            ),
-                          ),
-                          Consumer<Grid>(
-                            builder: (context, grid, child) => Container(
-                              margin: EdgeInsets.only(right: 35),
-                              child: Text(
-                                "x ${grid.blockCount.toString()}",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GridLayout(),
-                    ],
-                  ),
+                  RemainingBlocks(),
+                  GridLayout(),
                 ],
               ),
             ),
