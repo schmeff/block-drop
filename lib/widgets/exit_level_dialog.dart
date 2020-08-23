@@ -30,8 +30,8 @@ class _ExitLevelDialogState extends State<ExitLevelDialog> {
           elevation: 5.0,
           child: Container(
             padding: const EdgeInsets.all(20.0),
-            height: 250,
-            width: 100,
+            height: 200,
+            width: 250,
             decoration: BoxDecoration(
               color: Theme.of(context).backgroundColor,
             ),
@@ -67,6 +67,15 @@ class _ExitLevelDialogState extends State<ExitLevelDialog> {
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black45,
+                                    offset: Offset(
+                                      0.0,
+                                      5.0,
+                                    ),
+                                    blurRadius: 5.0),
+                              ],
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
