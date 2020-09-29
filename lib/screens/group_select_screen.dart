@@ -54,9 +54,9 @@ class GroupSelectScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.17,
+                        width: MediaQuery.of(context).size.height * 0.13,
                         child: FittedBox(
-                          fit: BoxFit.fitWidth,
+                          fit: BoxFit.fitHeight,
                           child: Text(
                             'Levels',
                             style: TextStyle(

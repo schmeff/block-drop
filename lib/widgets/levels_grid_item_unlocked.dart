@@ -12,6 +12,11 @@ class LevelsGridItemUnlocked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double containerWidth =
+        (MediaQuery.of(context).size.width - 80.0) / 5;
+    final double containerHeight = containerWidth;
+    final double borderWidth = 3.0;
+    final double starSize = (containerWidth - (borderWidth * 2) - 10) / 3;
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
@@ -19,7 +24,7 @@ class LevelsGridItemUnlocked extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(
             color: Theme.of(context).primaryColor,
-            width: 3.0,
+            width: borderWidth,
           ),
           boxShadow: [
             BoxShadow(
@@ -34,32 +39,38 @@ class LevelsGridItemUnlocked extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              level['level'].toString(),
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
+            Container(
+              height: containerHeight * 0.38,
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: Text(
+                  level['level'].toString(),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(Icons.star,
-                    size: 16.0,
+                    size: starSize,
                     color: level['stars'] != null && level['stars'] >= 1
                         ? Color.fromRGBO(207, 255, 4, 1)
                         : Theme.of(context).primaryColorDark),
+                Spacer(),
                 Icon(Icons.star,
-                    size: 16.0,
+                    size: starSize,
                     color: level['stars'] != null && level['stars'] >= 2
                         ? Color.fromRGBO(207, 255, 4, 1)
                         : Theme.of(context).primaryColorDark),
+                Spacer(),
                 Icon(
                   Icons.star,
-                  size: 16.0,
+                  size: starSize,
                   color: level['stars'] != null && level['stars'] >= 3
                       ? Color.fromRGBO(207, 255, 4, 1)
                       : Theme.of(context).primaryColorDark,

@@ -58,29 +58,48 @@ class _GameScreenState extends State<GameScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      IconButton(
-                        icon: Platform.isAndroid
-                            ? Icon(Icons.arrow_back)
-                            : Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          this.showExitLevelDialog();
-                        },
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: IconButton(
+                            icon: Platform.isAndroid
+                                ? Icon(Icons.arrow_back)
+                                : Icon(Icons.arrow_back_ios),
+                            onPressed: () {
+                              this.showExitLevelDialog();
+                            },
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 Column(
                   children: [
-                    Text(
-                      "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
-                      style: TextStyle(
-                          fontSize: 26.0, fontWeight: FontWeight.w500),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Text(
+                          "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
+                          style: TextStyle(
+                              fontSize: 26.0, fontWeight: FontWeight.w500),
+                        ),
+                      ),
                     ),
-                    Text(
-                      Provider.of<Levels>(context, listen: false).currentGroup,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.white.withOpacity(0.7),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.04,
+                      child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Text(
+                          Provider.of<Levels>(context, listen: false)
+                              .currentGroup,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.white.withOpacity(0.7),
+                          ),
+                        ),
                       ),
                     ),
                   ],
