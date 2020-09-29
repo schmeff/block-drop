@@ -18,17 +18,24 @@ class GridLayout extends StatelessWidget {
         .toList();
   }
 
+  double calculateGridHeight(BuildContext context) {
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery.of(context).size.width;
+
+    return deviceHeight / 2 > deviceWidth * 0.95
+        ? deviceWidth * 0.95
+        : deviceHeight / 2;
+  }
+
   @override
   Widget build(BuildContext context) {
     var grid = Provider.of<Grid>(context).grid;
-    var gridHeight = MediaQuery.of(context).size.height / 2;
+    var gridHeight = calculateGridHeight(context);
     var gridWidth = gridHeight;
     return Container(
-      padding: EdgeInsets.all(0.5),
       height: gridHeight + 1,
       width: gridWidth,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: mapRows(grid, gridHeight),
       ),
     );

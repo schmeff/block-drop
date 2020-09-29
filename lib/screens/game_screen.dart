@@ -8,6 +8,7 @@ import '../widgets/block_progress_bar.dart';
 import '../widgets/game_over_dialog.dart';
 import '../widgets/game_won_dialog.dart';
 import '../widgets/exit_level_dialog.dart';
+import '../widgets/remaining_blocks.dart';
 
 import '../providers/grid.dart';
 import '../providers/levels.dart';
@@ -49,15 +50,12 @@ class _GameScreenState extends State<GameScreen> {
       child: Scaffold(
         body: Stack(
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 40, top: 20),
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                SafeArea(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       IconButton(
@@ -70,67 +68,27 @@ class _GameScreenState extends State<GameScreen> {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
-                        style: TextStyle(
-                            fontSize: 26.0, fontWeight: FontWeight.w500),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
+                      style: TextStyle(
+                          fontSize: 26.0, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      Provider.of<Levels>(context, listen: false).currentGroup,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white.withOpacity(0.7),
                       ),
-                      Text(
-                        Provider.of<Levels>(context, listen: false)
-                            .currentGroup,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.white.withOpacity(0.7),
-                        ),
-                      ),
-                    ],
-                  ),
-                  BlocksProgressBar(),
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            height: 30,
-                            width: 30,
-                            margin: EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(2.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Theme.of(context).primaryColor,
-                                  blurRadius: 2.0,
-                                  spreadRadius: 0.0,
-                                  offset: Offset(0.0, 0.0),
-                                )
-                              ],
-                            ),
-                          ),
-                          Consumer<Grid>(
-                            builder: (context, grid, child) => Container(
-                              margin: EdgeInsets.only(right: 35),
-                              child: Text(
-                                "x ${grid.blockCount.toString()}",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GridLayout(),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                BlocksProgressBar(),
+                RemainingBlocks(),
+                GridLayout(),
+              ],
             ),
             Consumer<Grid>(
               builder: (context, grid, child) =>
