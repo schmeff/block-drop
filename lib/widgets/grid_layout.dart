@@ -22,8 +22,8 @@ class GridLayout extends StatelessWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
 
-    return deviceHeight / 2 > deviceWidth * 0.95
-        ? deviceWidth * 0.95
+    return deviceHeight / 2 > deviceWidth * 0.90
+        ? deviceWidth * 0.90
         : deviceHeight / 2;
   }
 

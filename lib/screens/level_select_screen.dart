@@ -23,31 +23,44 @@ class LevelSelectScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SafeArea(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: Platform.isAndroid
-                        ? Icon(Icons.arrow_back)
-                        : Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          GroupSelectScreen.routeName, (route) => false);
-                    },
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.07,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Platform.isAndroid
+                            ? Icon(Icons.arrow_back)
+                            : Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              GroupSelectScreen.routeName, (route) => false);
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  '${Provider.of<Levels>(context, listen: false).currentGroup}',
-                  style: TextStyle(
-                    fontSize: 26.0,
-                    fontWeight: FontWeight.w400,
+                Container(
+                  width: MediaQuery.of(context).size.height * 0.08,
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Text(
+                      '${Provider.of<Levels>(context, listen: false).currentGroup}',
+                      style: TextStyle(
+                        fontSize: 26.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ),
                 ),
               ],
