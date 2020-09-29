@@ -20,6 +20,7 @@ class GroupItem extends StatelessWidget {
         Navigator.of(context).pushNamed(LevelSelectScreen.routeName);
       },
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.1,
         padding: EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
@@ -48,17 +49,23 @@ class GroupItem extends StatelessWidget {
             Flexible(
               child: FractionallySizedBox(
                 widthFactor: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${this.group}',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                      ),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${this.group}',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -72,21 +79,27 @@ class GroupItem extends StatelessWidget {
                       future: Provider.of<Levels>(context)
                           .getCompletedLevelsStarCount(this.group),
                       builder: (ctx, starCount) => starCount.hasData
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Color.fromRGBO(207, 255, 4, 1),
+                          ? Container(
+                              height: MediaQuery.of(context).size.height * 0.06,
+                              child: FittedBox(
+                                fit: BoxFit.fitHeight,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Color.fromRGBO(207, 255, 4, 1),
+                                    ),
+                                    Text(
+                                      '${starCount.data.toString()}/${(totalLevels * 3).toString()}',
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  '${starCount.data.toString()}/${(totalLevels * 3).toString()}',
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                              ),
                             )
                           : SizedBox(),
                     ),

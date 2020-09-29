@@ -24,19 +24,21 @@ class LevelSelectScreen extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Platform.isAndroid
-                      ? Icon(Icons.arrow_back)
-                      : Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        GroupSelectScreen.routeName, (route) => false);
-                  },
-                ),
-              ],
+            SafeArea(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Platform.isAndroid
+                        ? Icon(Icons.arrow_back)
+                        : Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          GroupSelectScreen.routeName, (route) => false);
+                    },
+                  ),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

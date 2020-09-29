@@ -50,15 +50,12 @@ class _GameScreenState extends State<GameScreen> {
       child: Scaffold(
         body: Stack(
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 40, top: 20),
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                SafeArea(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       IconButton(
@@ -71,28 +68,27 @@ class _GameScreenState extends State<GameScreen> {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
-                        style: TextStyle(
-                            fontSize: 26.0, fontWeight: FontWeight.w500),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "Level ${Provider.of<Levels>(context, listen: false).currentLevelNumber}",
+                      style: TextStyle(
+                          fontSize: 26.0, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      Provider.of<Levels>(context, listen: false).currentGroup,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white.withOpacity(0.7),
                       ),
-                      Text(
-                        Provider.of<Levels>(context, listen: false)
-                            .currentGroup,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.white.withOpacity(0.7),
-                        ),
-                      ),
-                    ],
-                  ),
-                  BlocksProgressBar(),
-                  RemainingBlocks(),
-                  GridLayout(),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                BlocksProgressBar(),
+                RemainingBlocks(),
+                GridLayout(),
+              ],
             ),
             Consumer<Grid>(
               builder: (context, grid, child) =>
