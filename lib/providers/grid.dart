@@ -10,6 +10,7 @@ import '../utility/player_data.dart';
 class Grid with ChangeNotifier {
   List<List<Block>> _grid;
   List<Block> _enemies = List();
+  List<Block> _barriers = List();
   int _blockCount;
   int _startingBlockCount;
   Map<String, int> _stars;
@@ -28,6 +29,7 @@ class Grid with ChangeNotifier {
   Grid(Level level, this._levelGroup, this._levelNumber) {
     if (level != null) {
       this._enemies = level.enemies;
+      this._barriers = level.barriers;
       this._startingBlockCount = level.blockCount;
       this._blockCount = this._startingBlockCount;
       this._stars = level.stars;
@@ -35,6 +37,7 @@ class Grid with ChangeNotifier {
       if (level.levelDimensions.rows > 0 && level.levelDimensions.columns > 0) {
         _buildGrid(level.levelDimensions.rows, level.levelDimensions.columns);
         _placeEnemies();
+        _placeBarriers();
       }
     }
   }
@@ -89,6 +92,12 @@ class Grid with ChangeNotifier {
       this._grid[enemy.position.row][enemy.position.column] = enemy;
     });
     _moveEnemies();
+  }
+
+  _placeBarriers() {
+    this._barriers.forEach((barrier) {
+      this._grid[barrier.position.row][barrier.position.column] = barrier;
+    });
   }
 
   _markCellAsEmpty(int row, int column) {
@@ -205,7 +214,8 @@ class Grid with ChangeNotifier {
   }
 
   _moveAllyDown(int row, int column) {
-    if (row >= this._grid.length - 1) {
+    if (row >= this._grid.length - 1 ||
+        this._grid[row + 1][column].status == BlockStatus.BARRIER) {
       this._markCellAsEmpty(row, column);
       this._checkForAllyBlocks();
     } else if (this._grid[row + 1][column].status == BlockStatus.EMPTY ||
@@ -241,7 +251,9 @@ class Grid with ChangeNotifier {
 
   highlightColumn(int column) {
     this._grid.forEach((row) {
-      row[column].setHighlighted(true);
+      if (row[column].status != BlockStatus.BARRIER) {
+        row[column].setHighlighted(true);
+      }
     });
     notifyListeners();
   }
@@ -256,7 +268,7 @@ class Grid with ChangeNotifier {
   }
 
   double get blockPercentage {
-    return this._blockPercentage;
+    return this._blockPercentage > 1.0 ? 1.0 : this._blockPercentage;
   }
 
   void _checkForAllyBlocks() {

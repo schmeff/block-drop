@@ -14,7 +14,8 @@ enum Direction {
 enum BlockStatus {
   ALLY,
   ENEMY,
-  EMPTY
+  EMPTY,
+  BARRIER
 } // DO NOT CHANGE THE ORDER THESE ARE LISTED IN
 
 class Position {
@@ -115,6 +116,7 @@ class Block {
   Color get color {
     if (status == BlockStatus.ALLY) return Colors.teal;
     if (status == BlockStatus.ENEMY) return Colors.red;
+    if (status == BlockStatus.BARRIER) return Color.fromRGBO(31, 31, 31, 0);
 
     return Color.fromRGBO(31, 31, 31, 1);
   }

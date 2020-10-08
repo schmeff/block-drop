@@ -23,11 +23,12 @@ class Level with ChangeNotifier {
   final int _number;
   final LevelDimensions _levelDimensions;
   final List<Block> _enemies;
+  final List<Block> _barriers;
   final int _blockCount;
   final Map<String, int> _stars;
 
-  Level(this._number, this._levelDimensions, this._enemies, this._blockCount,
-      this._stars);
+  Level(this._number, this._levelDimensions, this._enemies, this._barriers,
+      this._blockCount, this._stars);
 
   Map toJson() => {
         'number': this._number,
@@ -36,6 +37,9 @@ class Level with ChangeNotifier {
             : null,
         'enemies': this._enemies != null
             ? this._enemies.map((e) => e.toJson()).toList()
+            : null,
+        'barriers': this._barriers != null
+            ? this._barriers.map((e) => e.toJson()).toList()
             : null,
         'blockCount': this._blockCount,
         'stars': this._stars,
@@ -51,6 +55,10 @@ class Level with ChangeNotifier {
 
   List<Block> get enemies {
     return this._enemies;
+  }
+
+  List<Block> get barriers {
+    return this._barriers;
   }
 
   int get blockCount {
