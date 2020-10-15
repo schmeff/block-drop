@@ -26,10 +26,20 @@ class LevelConverter {
           .toList();
       enemies.add(Block(position, status, route, id));
     });
+    List<Block> barriers = List();
+    if (level.containsKey('barriers')) {
+      level['barriers'].forEach((barrier) {
+        Position position =
+            Position(barrier['position']['row'], barrier['position']['column']);
+        BlockStatus status = BlockStatus.values[barrier['status']];
+        List<Direction> route = List();
+        barriers.add(Block(position, status, route));
+      });
+    }
     int blockCount = level['blockCount'];
     Map<String, int> stars = level['stars'];
 
-    return Level(levelNumber, dimensions, enemies, blockCount, stars);
+    return Level(levelNumber, dimensions, enemies, barriers, blockCount, stars);
   }
 }
 
