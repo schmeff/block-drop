@@ -897,13 +897,31 @@ class LevelsData {
         "enemies": [
           {
             "id": 0,
-            "position": {"row": 4, "column": 4},
+            "position": {"row": 3, "column": 2},
             "status": 1,
-            "route": [0, 0, 1, 1]
-          }
+            "route": [2, 2, 3, 3]
+          },
+          {
+            "id": 1,
+            "position": {"row": 3, "column": 3},
+            "status": 1,
+            "route": [3, 3, 2, 2]
+          },
+          {
+            "id": 2,
+            "position": {"row": 5, "column": 2},
+            "status": 1,
+            "route": [2, 2, 3, 3]
+          },
+          {
+            "id": 3,
+            "position": {"row": 5, "column": 3},
+            "status": 1,
+            "route": [3, 3, 2, 2]
+          },
         ],
-        "blockCount": 5,
-        "stars": {"one": 1, "two": 3, "three": 7},
+        "blockCount": 3,
+        "stars": {"one": 1, "two": 2, "three": 3},
       },
       2: {
         "number": 2,
@@ -911,13 +929,317 @@ class LevelsData {
         "enemies": [
           {
             "id": 0,
+            "position": {"row": 1, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 3, 2, 2, 2, 2, 2]
+          },
+          {
+            "id": 1,
+            "position": {"row": 2, "column": 5},
+            "status": 1,
+            "route": [2, 2, 2, 2, 2, 3, 3, 3, 3, 3]
+          },
+          {
+            "id": 2,
+            "position": {"row": 3, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 3, 2, 2, 2, 2, 2]
+          },
+          {
+            "id": 3,
+            "position": {"row": 4, "column": 5},
+            "status": 1,
+            "route": [2, 2, 2, 2, 2, 3, 3, 3, 3, 3]
+          },
+          {
+            "id": 4,
+            "position": {"row": 5, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 3, 2, 2, 2, 2, 2]
+          },
+        ],
+        "blockCount": 3,
+        "stars": {"one": 1, "two": 2, "three": 3},
+      },
+      3: {
+        "number": 3,
+        "levelDimensions": {"rows": 6, "columns": 6},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 1, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 3, 2, 2, 2, 2, 2]
+          },
+          {
+            "id": 1,
+            "position": {"row": 2, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 2, 2, 2, 2]
+          },
+          {
+            "id": 2,
+            "position": {"row": 3, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 2, 2, 2]
+          },
+          {
+            "id": 3,
+            "position": {"row": 4, "column": 0},
+            "status": 1,
+            "route": [3, 3, 2, 2]
+          },
+          {
+            "id": 4,
+            "position": {"row": 5, "column": 0},
+            "status": 1,
+            "route": [3, 2]
+          },
+        ],
+        "blockCount": 3,
+        "stars": {"one": 1, "two": 2, "three": 3},
+      },
+      4: {
+        "number": 4,
+        "levelDimensions": {"rows": 6, "columns": 6},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 1, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 2, 2, 2]
+          },
+          {
+            "id": 1,
+            "position": {"row": 2, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 2, 2, 2, 2]
+          },
+          {
+            "id": 2,
+            "position": {"row": 3, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 3, 2, 2, 2, 2, 2]
+          },
+          {
+            "id": 3,
+            "position": {"row": 4, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 3, 2, 2, 2, 2]
+          },
+          {
+            "id": 4,
+            "position": {"row": 5, "column": 0},
+            "status": 1,
+            "route": [3, 3, 3, 2, 2, 2]
+          },
+        ],
+        "blockCount": 3,
+        "stars": {"one": 1, "two": 2, "three": 3},
+      },
+      5: {
+        "number": 5,
+        "levelDimensions": {"rows": 6, "columns": 6},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 3, "column": 1},
+            "status": 1,
+            "route": [2, 3]
+          },
+          {
+            "id": 1,
+            "position": {"row": 3, "column": 4},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 2,
+            "position": {"row": 4, "column": 2},
+            "status": 1,
+            "route": [2, 2, 3, 3]
+          },
+          {
+            "id": 3,
+            "position": {"row": 4, "column": 3},
+            "status": 1,
+            "route": [3, 3, 2, 2]
+          },
+          {
+            "id": 4,
+            "position": {"row": 5, "column": 2},
+            "status": 1,
+            "route": [2, 3]
+          },
+          {
+            "id": 5,
+            "position": {"row": 5, "column": 3},
+            "status": 1,
+            "route": [3, 2]
+          },
+        ],
+        "blockCount": 3,
+        "stars": {"one": 1, "two": 2, "three": 3},
+      },
+      6: {
+        "number": 6,
+        "levelDimensions": {"rows": 6, "columns": 6},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 2, "column": 0},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 1,
+            "position": {"row": 2, "column": 2},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 2,
+            "position": {"row": 2, "column": 4},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 3,
+            "position": {"row": 3, "column": 0},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 4,
+            "position": {"row": 3, "column": 2},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 5,
+            "position": {"row": 3, "column": 4},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 6,
+            "position": {"row": 4, "column": 0},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 7,
+            "position": {"row": 4, "column": 2},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 8,
             "position": {"row": 4, "column": 4},
             "status": 1,
-            "route": [0, 0, 1, 1]
-          }
+            "route": [3, 2]
+          },
+          {
+            "id": 9,
+            "position": {"row": 5, "column": 0},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 10,
+            "position": {"row": 5, "column": 2},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 11,
+            "position": {"row": 5, "column": 4},
+            "status": 1,
+            "route": [3, 2]
+          },
         ],
-        "blockCount": 5,
-        "stars": {"one": 1, "two": 3, "three": 7},
+        "blockCount": 3,
+        "stars": {"one": 1, "two": 2, "three": 3},
+      },
+      7: {
+        "number": 7,
+        "levelDimensions": {"rows": 6, "columns": 6},
+        "enemies": [
+          {
+            "id": 0,
+            "position": {"row": 2, "column": 0},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 1,
+            "position": {"row": 2, "column": 2},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 2,
+            "position": {"row": 2, "column": 4},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 3,
+            "position": {"row": 3, "column": 1},
+            "status": 1,
+            "route": [2, 3]
+          },
+          {
+            "id": 4,
+            "position": {"row": 3, "column": 3},
+            "status": 1,
+            "route": [2, 3]
+          },
+          {
+            "id": 5,
+            "position": {"row": 3, "column": 5},
+            "status": 1,
+            "route": [2, 3]
+          },
+          {
+            "id": 6,
+            "position": {"row": 4, "column": 0},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 7,
+            "position": {"row": 4, "column": 2},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 8,
+            "position": {"row": 4, "column": 4},
+            "status": 1,
+            "route": [3, 2]
+          },
+          {
+            "id": 9,
+            "position": {"row": 5, "column": 1},
+            "status": 1,
+            "route": [2, 3]
+          },
+          {
+            "id": 10,
+            "position": {"row": 5, "column": 3},
+            "status": 1,
+            "route": [2, 3]
+          },
+          {
+            "id": 11,
+            "position": {"row": 5, "column": 5},
+            "status": 1,
+            "route": [2, 3]
+          },
+        ],
+        "blockCount": 3,
+        "stars": {"one": 6, "two": 8, "three": 10},
       },
     },
     "7x7": {},
